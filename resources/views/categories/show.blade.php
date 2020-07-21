@@ -27,62 +27,58 @@
                 </div>
             </li>
         </ul>
-        <div class="tab-content mt-2" id="myTabContent">
-            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                <div class="row row-cols-1 row-cols-md-4">
-                    @forelse($events as $event)
-                        <div class="col mb-4">
-                            <div class="card shadow border-0 rounded-lg h-100">
-                                <img src="{{ $event->photo }}" class="card-img-top" alt="...">
-                                <div class="card-body">
-                                    <h4 class="card-title text-center">
-                                        <a href="{{ route('events.show', $event->id) }}" CLASS="stretched-link">{{ $event->name }}</a>
-                                    </h4>
-                                    <div class="row mb-4">
-                                        <div class="col-6 text-muted text-nowrap">
-                                            @foreach($event->categories as $category)
-                                                <h5 class="text-muted">{{ $category->name }}</h5>
-                                            @endforeach
-                                        </div>
-                                        <div class="col-6 text-right">
-                                            <a href="{{ route('events.show', $event->id) }}">
-                                                <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-eye-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
-                                                    <path fill-rule="evenodd" d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
-                                                </svg>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="row clearfix">
-                                        <div class="col-6">
-                                            <button class="btn btn-light text-nowrap disabled">{{ $event->starts_at }}</button>
-                                        </div>
-                                        <div class="col-6">
-                                            <a href="{{ route('events.show', $event->id) }}" class="btn btn-danger text-nowrap">
-                                                Buy Tickets
-                                            </a>
-                                        </div>
-                                    </div>
+        <div class="row pb-5">
+            @forelse($events as $event)
+                <div class="col-lg-3 col-md-6 mb-lg-4">
+                    <div class="card shadow-sm mb-4 border-0 h-100">
+                        <img src="{{ $event->photo }}" class="card-img-top" alt="...">
+                        <div class="card-body p-4">
+                            <h4 class="card-title text-center">
+                                <a href="{{route('events.show', $event->id)}}">{{ $event->name }}</a>
+                            </h4>
+                            <p class="font-weight-light text-justify">
+                                {{ Str::limit($event->description, 100, ' (...)') }}
+                            </p>
+                            <div>
+                                @foreach($event->categories as $category)
+                                    <a href="{{route('categories.show', $category->id)}}" class="badge badge-pill badge-warning">{{ $category->name }}</a>
+                                @endforeach
+
+                            </div>
+
+                        </div>
+                        <div class="card-footer border-0 bg-dark">
+
+                            <div class="d-flex bd-highlight">
+                                <div class="mr-auto bd-highlight text-info">
+                                    {{--                                            {{$event->starts_at->diffForHumans()}} &nbsp;|&nbsp; {{$event->starts_at->format(' H:i')}}--}}
+                                    {{--                                            {{ date('Y-m-d','H:i', strtotime($event->starts_at))}}--}}
+                                    {{ \Carbon\Carbon::parse($event->starts_at)->format('j F') }}
+                                </div>
+                                <div class="bd-highlight">
+                                    <a href="#" class="btn btn-sm btn-outline-danger">
+                                        Buy Tickets
+                                    </a>
                                 </div>
                             </div>
                         </div>
-                    @empty
-                        <div class="alert alert-info alert-dismissible fade show ml-2 mb-10" role="alert">
-                            <h2 class="alert-heading text-danger font-weight-bolder">
-                                Oops!
-                            </h2>
-                            <p class="mb-0 font-weight-bold font-italic">
-                                No Events available on this Category!
-                            </p>
-                            <hr>
-                            <a href="{{ route('categories.index') }}" class="btn btn-outline-dark btn-sm text-uppercase">View other categories</a>
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                    @endforelse
+                    </div>
                 </div>
-            </div>
+            @empty
+                <div class="alert alert-info alert-dismissible fade show ml-2 mb-10" role="alert">
+                    <h2 class="alert-heading text-danger font-weight-bolder">
+                        Oops!
+                    </h2>
+                    <p class="mb-0 font-weight-bold font-italic">
+                        No Events available on this Category!
+                    </p>
+                    <hr>
+                    <a href="{{ route('categories.index') }}" class="btn btn-outline-dark btn-sm text-uppercase">View other categories</a>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @endforelse
         </div>
     </div>
 @endsection

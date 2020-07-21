@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Event;
-use App\EventCategory;
 use Illuminate\Http\Request;
 use App\Category;
 
@@ -60,9 +58,8 @@ class CategoriesController extends Controller
     public function show($id)
     {
         $events = Category::find($id)->events()->orderBy('name')->get();
-        $categories = Category::all();
         $category = Category::find($id);
-        return view('categories.show', compact('category','categories', 'events'));
+        return view('categories.show', compact('category', 'events'));
     }
 
     /**

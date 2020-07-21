@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Service;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ServicesController extends Controller
 {
@@ -13,7 +15,8 @@ class ServicesController extends Controller
      */
     public function index()
     {
-        //
+        $services = Service::all();
+        return view('services.index', compact('services'));
     }
 
     /**
@@ -34,7 +37,24 @@ class ServicesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title'=>'required',
+            'price'=>'required',
+            'description'=>'required',
+            'avatar' => 'image|max:2000',
+        ]);
+
+        $filename = request('avatar')->store('services');
+
+        $service = new Service();
+        $service->title = $request->title;
+        $service->price = $request->price;
+        $service->description = $request->description;
+        $service->avatar = $filename;
+        $service->user_id = Auth::id();
+        $service->save();
+
+        return redirect('services')->with('success', 'Service has been added successfully!');
     }
 
     /**
@@ -45,7 +65,8 @@ class ServicesController extends Controller
      */
     public function show($id)
     {
-        //
+        $service = Service::find($id);
+        return view('services.show', compact('service'));
     }
 
     /**

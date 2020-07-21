@@ -5,6 +5,7 @@
         <nav aria-label="breadcrumb" mb-4>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{{route('events.index')}}">Events</a></li>
                 <li class="breadcrumb-item active" aria-current="page">{{ $event->name }}</li>
             </ol>
         </nav>
@@ -48,6 +49,7 @@
 
                             <div class="form-group text-right">
                                 <button class="btn btn-outline-danger" type="submit">Book</button>
+                                <a href="{{ route('events.index') }}" class="btn btn-outline-info" type="submit">Back</a>
                             </div>
                         </form>
                     </div>

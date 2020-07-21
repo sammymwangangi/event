@@ -18,13 +18,13 @@
     </div>
 
     <div class="container align-content-around">
-        <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <ul class="nav nav-tabs text-muted" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
                 <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Home</a>
             </li>
-            <li class="nav-item dropdown" role="presentation">
+            <li class="nav-item dropdown px-1 border-b-0" role="presentation">
                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" aria-selected="false">Categories</a>
-                <div class="dropdown-menu">
+                <div class="dropdown-menu border-0 shadow-sm">
                     @foreach($categories as $category)
                         <a class="dropdown-item" href="{{route('categories.show', $category->id)}}">{{ $category->name }}</a>
                     @endforeach
@@ -33,37 +33,36 @@
         </ul>
         <div class="tab-content mt-2" id="myTabContent">
             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                <div class="row row-cols-1 row-cols-md-4">
+                <div class="row pb-5">
                     @foreach($events as $event)
-
-                        <div class="col mb-4">
-                            <div class="card shadow border-0 rounded-lg h-100">
+                        <div class="col-lg-3 col-md-6 mb-4">
+                            <div class="card shadow-sm border-0 h-100">
                                 <img src="{{ $event->photo }}" class="card-img-top" alt="...">
-                                <div class="card-body">
+                                <div class="card-body p-4">
                                     <h4 class="card-title text-center">
-                                        <a href="#">{{ $event->name }}</a>
+                                        <a href="{{route('events.show', $event->id)}}">{{ $event->name }}</a>
                                     </h4>
-                                    <div class="row mb-4">
-                                        <div class="col-6 text-muted text-nowrap">
-                                            @foreach($event->categories as $category)
-                                                <h5 class="text-muted">{{ $category->name }}</h5>
-                                            @endforeach
-                                        </div>
-                                        <div class="col-6 text-right">
-                                            <a href="#">
-                                                <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-eye-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
-                                                    <path fill-rule="evenodd" d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
-                                                </svg>
-                                            </a>
-                                        </div>
+                                    <p class="font-weight-light text-justify">
+                                        {{ Str::limit($event->description, 100, ' (...)') }}
+                                    </p>
+                                    <div>
+                                        @foreach($event->categories as $category)
+                                            <a href="{{route('categories.show', $category->id)}}" class="badge badge-pill badge-warning">{{ $category->name }}</a>
+                                        @endforeach
+
                                     </div>
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <button class="btn btn-light text-nowrap disabled">25 Dec 2016</button>
+
+                                </div>
+                                <div class="card-footer border-0 bg-dark">
+
+                                    <div class="d-flex bd-highlight">
+                                        <div class="mr-auto bd-highlight text-info">
+                                            <small>
+                                                {{ \Carbon\Carbon::parse($event->starts_at)->format('j F') }} &nbsp;|&nbsp; {{ \Carbon\Carbon::parse($event->starts_at)->format(' H:i') }}
+                                            </small>
                                         </div>
-                                        <div class="col-6 text-right">
-                                            <a href="#" class="btn btn-danger text-nowrap">
+                                        <div class="bd-highlight">
+                                            <a href="{{ route('events.show', $event->id) }}" class="btn btn-sm btn-outline-danger">
                                                 Buy Tickets
                                             </a>
                                         </div>

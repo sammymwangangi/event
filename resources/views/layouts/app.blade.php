@@ -36,15 +36,17 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent" >
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item mr-4">
-                            Events<sup><span class="badge badge-warning rounded-circle">10</span></sup>
+                            <a href="{{ route('events.index') }}">Events<sup><span class="badge badge-warning rounded-circle">{{$events->count()}}</span></sup></a>
                         </li>
-                        <li class="nav-item  mr-4">
-                            Venues<sup><span class="badge badge-warning rounded-circle">20</span></sup>
+                        <li class="nav-item mr-4">
+                            <a href="{{ route('venues.index') }}">Venues<sup><span class="badge badge-warning rounded-circle">{{$venues->count()}}</span></sup></a>
                         </li>
-                        <li class="nav-item  mr-4">
-                            Services<sup><span class="badge badge-warning rounded-circle">5</span></sup>
+                        <li class="nav-item mr-4">
+                            <a href="{{ route('services.index') }}">
+                                Services<sup><span class="badge badge-warning rounded-circle">{{$services->count()}}</span></sup>
+                            </a>
                         </li>
-                        <li class="nav-item  mr-4">
+                        <li class="nav-item mr-4">
                             Expense Tracker
                         </li>
 
