@@ -2,7 +2,7 @@
 
 @section('content')
     <div id="jumbo-bg" class="jumbotron jumbotron-events text-center text-white mb-4">
-        <h1 class="display-4">All Events</h1>
+        <h1 class="display-4">Search Results</h1>
         <hr>
         <div class="d-flex justify-content-center">
             <form action="/search" method="get">
@@ -45,9 +45,9 @@
                                     </h4>
                                     <div class="row mb-4">
                                         <div class="col-6 text-muted text-nowrap">
-                                            @foreach($event->categories as $category)
-                                                <h5 class="text-muted">{{ $category->name }}</h5>
-                                            @endforeach
+{{--                                            @foreach($event->categories as $category)--}}
+{{--                                                <h5 class="text-muted">{{ $category->name }}</h5>--}}
+{{--                                            @endforeach--}}
                                         </div>
                                         <div class="col-6 text-right">
                                             <a href="#">

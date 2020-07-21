@@ -19,6 +19,7 @@ Route::resource('categories', 'CategoriesController');
 Route::resource('events', 'EventsController');
 Route::resource('venues', 'VenuesController');
 Route::resource('services', 'ServicesController');
+Route::get('/search', 'IndexController@search');
 
 Auth::routes();
 
