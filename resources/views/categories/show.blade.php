@@ -27,17 +27,31 @@
                 </div>
             </li>
         </ul>
-        <div class="row pb-5">
+        <div class="row pb-5 mt-4">
             @forelse($events as $event)
                 <div class="col-lg-3 col-md-6 mb-lg-4">
-                    <div class="card shadow-sm mb-4 border-0 h-100">
-                        <img src="{{ $event->photo }}" class="card-img-top" alt="...">
+                    <div class="card shadow border-0 h-100">
+                        <a href="{{route('events.show', $event->id)}}">
+                            @if($event->photo != 'car.png')
+                                <img src="/storage/service/{{ $event->photo }}" class="card-img-top" alt="event">
+                            @else
+                                <img src="{{asset('/service/car.png')}}" class="card-img-top" alt="service">
+                            @endif
+                        </a>
                         <div class="card-body p-4">
-                            <h4 class="card-title text-center">
-                                <a href="{{route('events.show', $event->id)}}">{{ $event->name }}</a>
-                            </h4>
+                            <h5 class="card-title text-left">
+                                <a href="{{route('events.show', $event->id)}}" class="text-decoration-none text-dark">{{ $event->name }}</a>
+                            </h5>
+                            <div class="d-flex flex-row card-subtitle mb-2">
+                                <div>
+                                    <svg width="20px" height="20px" fill="#ef63ff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                                </div>
+                                <div class="text-info">
+                                    <small>{{$event->location}}</small>
+                                </div>
+                            </div>
                             <p class="font-weight-light text-justify">
-                                {{ Str::limit($event->description, 100, ' (...)') }}
+                                {{ Str::limit($event->description, 70, ' (...)') }}
                             </p>
                             <div>
                                 @foreach($event->categories as $category)
@@ -51,12 +65,12 @@
 
                             <div class="d-flex bd-highlight">
                                 <div class="mr-auto bd-highlight text-info">
-                                    {{--                                            {{$event->starts_at->diffForHumans()}} &nbsp;|&nbsp; {{$event->starts_at->format(' H:i')}}--}}
-                                    {{--                                            {{ date('Y-m-d','H:i', strtotime($event->starts_at))}}--}}
-                                    {{ \Carbon\Carbon::parse($event->starts_at)->format('j F') }}
+                                    <small>
+                                        {{ \Carbon\Carbon::parse($event->starts_at)->format('j F') }} &nbsp;|&nbsp; {{ \Carbon\Carbon::parse($event->starts_at)->format(' H:i') }}
+                                    </small>
                                 </div>
                                 <div class="bd-highlight">
-                                    <a href="#" class="btn btn-sm btn-outline-danger">
+                                    <a href="{{ route('events.show', $event->id) }}" class="btn btn-sm btn-outline-danger">
                                         Buy Tickets
                                     </a>
                                 </div>

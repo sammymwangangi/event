@@ -12,6 +12,6 @@ $factory->define(Venue::class, function (Faker $faker) {
         'price' => $faker->numberBetween($min = 1000, $max = 9000), // 8567,
         'address' => $faker->streetAddress,
         'seats' => $faker->numberBetween($min = 20, $max = 500),
-        'image' => $faker->imageUrl($width = 1920, $height = 1280),
+        'image' => 'car.png',
     ];
 });

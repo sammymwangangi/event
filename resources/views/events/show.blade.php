@@ -16,7 +16,11 @@
 
         <div class="row no-gutters bg-light position-relative">
             <div class="col-md-6 mb-md-0 p-md-4">
-                <img src="{{ $event->photo }}" class="w-100" alt="...">
+                @if($event->photo != 'car.png')
+                    <img src="/storage/service/{{ $event->photo }}" class="card-img-top" alt="event">
+                @else
+                    <img src="{{asset('/service/car.png')}}" class="card-img-top" alt="service">
+                @endif
             </div>
             <div class="col-md-6 position-static p-4 pl-md-0">
                 <h5 class="mt-0 font-weight-bold">Venue: <a href="{{ route('venues.show', $event->venue->id) }}">{{ $event->venue->name }}</a></h5>
