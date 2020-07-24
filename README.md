@@ -1,5 +1,5 @@
 
-## EVENT :sparkles:
+## EVENT:sparkles:
 
 #### Event Management System. `<SYSTEM STILL UNDER EARLY STAGES OF DEVELEOPMENT>` :wrench: :nut_and_bolt: :hammer:
 
