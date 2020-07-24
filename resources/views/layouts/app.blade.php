@@ -27,7 +27,7 @@
             <div class="container-fluid">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <a class="navbar-brand" href="/">
-                    <h4>EVENTOR</h4>
+                    <h4>EVENT<span style='font-size:40px;'>&#10024;</span></h4>
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
