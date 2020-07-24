@@ -1,16 +1,29 @@
 
-## EVENT
+## EVENT:sparkles:
 
-### Event Management System.
+#### Event Management System. `<SYSTEM STILL UNDER EARLY STAGES OF DEVELEOPMENT>` :wrench: :nut_and_bolt: :hammer:
+
+## FEATURES
+
+* **These are the features that are going to be in the final piece of the project :yum:**
+
+    * `Book events, venues and services. (COMING SOON)`
+    * `Track Income and expenses.`:fire: 
+        > `INCOME` is accumulated when people buy tickets for your event, or book your venue or service. `EXPENSES` occur when you book venues and/or services for your event.              (COMING SOON)
+    * `Payments Integration. (COMING SOON)` :fire:
+    * `Admin Dashboard to manage all users, event organizers, event owners, venue owners, services providers and general settings of the system. (COMING SOON)` :fire:
+    * `Integrate VueJs for super UX (COMING SOON)` :fire:
+    * `PostgreSQL for faster database queries. ( ALREADY CONFIQURED)`
 
 ## INSTALLATION
 
-### 1. ```git clone https://github.com/sammymwangangi/event```
-### 2. ```composer install```
-### 3. ```php artisan key:generate```
-### 4. ```cp .env.example .env```   \\\On windows machine use "copy" command instead of "cp".
-#### 5. Edit/configure .env to match your database credentials
-### 6. ```php artisan migrate --seed```
+### 1. `git clone https://github.com/sammymwangangi/event`
+### 2. `composer install`
+### 3. `php artisan key:generate`
+### 4. `cp .env.example .env`
+    > On windows machine use "copy" command instead of "cp".
+#### 5. Edit/configure .env to match your database credentials. I have used `POSTGRESQL`.
+### 6. `php artisan migrate --seed`
 #### 7 If you run into any error edit ```app\Providers\AppServiceProvider.php```  by commenting this lines of code:
 ```
     public function boot()
