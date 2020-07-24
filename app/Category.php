@@ -12,6 +12,6 @@ class Category extends Model
      * The events that belong to the category.
      */
     public function events(){
-        return $this->belongsToMany('App\Event');
+        return $this->belongsToMany('App\Event', 'category_event');
     }
 }

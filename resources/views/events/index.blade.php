@@ -14,9 +14,10 @@
     </div>
 
     <div class="container align-content-around">
+        {{-- TABS --}}
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
-                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Home</a>
+                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Events</a>
             </li>
             <li class="nav-item dropdown" role="presentation">
                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" aria-selected="false">Categories</a>
@@ -27,15 +28,55 @@
                 </div>
             </li>
         </ul>
+        {{-- END TABS --}}
+
+        <h4 class="text-muted text-center mx-4 my-4">
+            <span>
+                <button class="btn btn-primary" data-toggle="modal" data-target="#addModal">Add Event</button>
+            </span>
+        </h4>
+
+        {{-- TAB CONTENT --}}
         <div class="tab-content mt-2" id="myTabContent">
             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                 <div class="row pb-5">
+                    {{-- PRINT ERRORS --}}
+                    <div class="col-sm-12">
+                        @if ($errors->any())
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        @endif
+                    </div>
+                    {{-- END --}}
+
+                    {{-- PRINT SUCCESS MESSAGE --}}
+                    <div class="col-sm-12">
+
+                        @if(session()->get('success'))
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                {{ session()->get('success') }}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        @endif
+                    </div>
+                    {{-- END --}}
+
                     @foreach($events as $event)
                         <div class="col-lg-3 col-md-6 mb-lg-4">
                             <div class="card shadow border-0 h-100">
                                 <a href="{{route('events.show', $event->id)}}">
                                     @if($event->photo != 'car.png')
-                                        <img src="/storage/service/{{ $event->photo }}" class="card-img-top" alt="event">
+                                        <img src="/storage/event/{{ $event->photo }}" class="card-img-top img-fluid" alt="event">
                                     @else
                                         <img src="{{asset('/service/car.png')}}" class="card-img-top" alt="service">
                                     @endif
@@ -75,6 +116,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <!-- Edit Modal -->
                         <div class="modal fade" id="editModal-{{ $event->id }}" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
@@ -91,12 +133,51 @@
                                             @method('PUT')
                                             <div class="form-row">
                                                 <div class="form-group col-md-6">
-                                                    <label for="title">Title</label>
-                                                    <input type="text" class="form-control" name="title" id="title" value="{{ $event->name }}">
+                                                    <label for="name">Event Name</label>
+                                                    <input type="text" class="form-control" name="name" id="name" value="{{ $event->name }}">
                                                 </div>
                                                 <div class="form-group col-md-6">
-                                                    <label for="price">Price</label>
-                                                    <input type="number" class="form-control" id="price" name="price" value="{{ $event->price }}">
+                                                    <label for="location">Event Location</label>
+                                                    <input type="text" class="form-control" name="location" id="location" value="{{ $event->location }}">
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label for="starts_at">Starts At</label>
+                                                    <input type="datetime-local" class="form-control" name="starts_at" id="starts_at" value="{{ \Carbon\Carbon::parse($event->starts_at)->format('Y-m-d\TH:i:s') }}">
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label for="ends_at">Ends At</label>
+                                                    <input type="datetime-local" class="form-control" name="ends_at" id="ends_at" value="{{ \Carbon\Carbon::parse($event->ends_at)->format('Y-m-d\TH:i:s') }}">
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label for="entry_fee">Entry Fee</label>
+                                                    <input type="number" class="form-control" id="entry_fee" name="entry_fee" value="{{ $event->entry_fee }}">
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label for="tickets">No. of Tickets</label>
+                                                    <select class="form-control" id="tickets" name="tickets">
+                                                        <option value="{{$event->tickets}}" {{$event->tickets ? 'selected' : ''}}>{{$event->tickets}}</option>
+                                                        <option value="250" {{($event->tickets ==='250') ? 'selected' : ''}}>250</option>
+                                                        <option value="500" {{($event->tickets ==='500') ? 'selected' : ''}}>500</option>
+                                                        <option value="800" {{($event->tickets ==='800') ? 'selected' : ''}}>800</option>
+                                                        <option value="1000" {{($event->tickets ==='1000') ? 'selected' : ''}}>1000</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label for="venue_id">Venue</label>
+                                                    <select class="form-control" id="venue_id" name="venue_id">
+                                                        @foreach($venues as $venue)
+                                                        <option value="{{$venue->id}}">{{ $venue->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label for="categories">Categories</label>
+                                                    <select class="form-control" id="categories" name="categories[]"
+                                                            multiple>
+                                                        @foreach($categories as $category)
+                                                            <option value="{{$category->id}}" {{$category->id ? 'selected' : ''}}>{{$category->name}}</option>
+                                                        @endforeach
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -104,8 +185,8 @@
                                                 <textarea class="form-control" name="description" id="description" cols="30" rows="6">{{ $event->description }}</textarea>
                                             </div>
                                             <div class="form-group mb-2">
-                                                <label for="avatar">Choose file</label>
-                                                <input type="file" class="form-control-file" id="avatar" name="avatar" value="{{ $event->avatar }}">
+                                                <label for="photo">Choose file</label>
+                                                <input type="file" class="form-control-file" id="photo" name="photo" value="{{ $event->photo }}">
                                             </div>
                                             <button type="submit" class="btn btn-success mb-2">Update</button>
                                         </form>
@@ -122,14 +203,14 @@
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="deleteModalLabel">Delete Service</h5>
+                                        <h5 class="modal-title" id="deleteModalLabel">Delete Event</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
                                     <div class="modal-body">
                                         <h5 class="text-muted mb-4">Are You sure you want to delete this service?</h5>
-                                        <form action="{{route('services.destroy', $event->id)}}" class="form-inline" method="post">
+                                        <form action="{{route('events.destroy', $event->id)}}" class="form-inline" method="post">
                                             @csrf
                                             @method('DELETE')
                                             <div class="modal-footer clearfix">
@@ -146,6 +227,7 @@
                 </div>
             </div>
         </div>
+        {{-- END TAB CONTENT --}}
     </div>
 
     <!-- Add Modal -->
@@ -153,33 +235,73 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="addModalLabel">New Service</h5>
+                    <h5 class="modal-title" id="addModalLabel">New Event</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{route('services.store')}}" method="post" enctype="multipart/form-data">
+                    <form action="{{route('events.store')}}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label for="title">Title</label>
-                                <input type="text" class="form-control" name="title" id="title" placeholder="Enter service title here" required>
+                                <label for="name">Event Name</label>
+                                <input type="text" class="form-control" name="name" id="name">
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="price">Price</label>
-                                <input type="number" class="form-control" id="price" name="price" placeholder="2000">
+                                <label for="location">Event Location</label>
+                                <input type="text" class="form-control" name="location" id="location">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="starts_at">Starts At</label>
+                                <input type="datetime-local" class="form-control" name="starts_at" id="starts_at">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="ends_at">Ends At</label>
+                                <input type="datetime-local" class="form-control" name="ends_at" id="ends_at">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="entry_fee">Entry Fee</label>
+                                <input type="number" class="form-control" id="entry_fee" name="entry_fee">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="tickets">No. of Tickets</label>
+                                <select class="form-control" id="tickets" name="tickets">
+                                    <option>Select No. of Tickets</option>
+                                    <option value="250" {{($event->tickets ==='250') ? 'selected' : ''}}>250</option>
+                                    <option value="500" {{($event->tickets ==='500') ? 'selected' : ''}}>500</option>
+                                    <option value="800" {{($event->tickets ==='800') ? 'selected' : ''}}>800</option>
+                                    <option value="1000" {{($event->tickets ==='1000') ? 'selected' : ''}}>1000</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="venue_id">Venue</label>
+                                <select class="form-control" id="venue_id" name="venue_id">
+                                    @foreach($venues as $venue)
+                                        <option value="{{$venue->id}}">{{ $venue->name }}</option>
+                                    @endforeach
+                                </select>
+
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="categories">Categories</label>
+                                <select class="form-control" id="categories" name="categories[]"
+                                        multiple>
+                                    @foreach($categories as $category)
+                                        <option value="{{$category->id}}" {{$category->id ? 'selected' : ''}}>{{$category->name}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="description">Description</label>
                             <textarea class="form-control" name="description" id="description" cols="30" rows="6"></textarea>
                         </div>
-                        <div class="custom-file mb-2">
-                            <input type="file" class="custom-file-input form-control-file" id="avatar" name="avatar">
-                            <label class="custom-file-label" for="avatar">Choose file</label>
+                        <div class="form-group mb-2">
+                            <label for="photo">Choose file</label>
+                            <input type="file" class="form-control-file" id="photo" name="photo" value="{{ $event->photo }}">
                         </div>
-                        <button type="submit" class="btn btn-success mb-2">Save</button>
+                        <button type="submit" class="btn btn-success mb-2">Submit</button>
                     </form>
                 </div>
                 <div class="modal-footer">

@@ -30,6 +30,6 @@ class Event extends Model
      * The categories that belong to the event.
      */
     public function categories(){
-        return $this->belongsToMany('App\Category');
+        return $this->belongsToMany('App\Category', 'category_event', 'event_id', 'category_id');
     }
 }

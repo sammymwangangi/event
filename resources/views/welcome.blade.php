@@ -39,7 +39,7 @@
                             <div class="card shadow-sm border-0 h-100">
                                 <a href="{{route('events.show', $event->id)}}">
                                     @if($event->photo != 'car.png')
-                                        <img src="/storage/service/{{ $event->photo }}" class="card-img-top" alt="event">
+                                        <img src="/storage/event/{{ $event->photo }}" class="card-img-top" alt="event">
                                     @else
                                         <img src="{{asset('/service/car.png')}}" class="card-img-top" alt="service">
                                     @endif

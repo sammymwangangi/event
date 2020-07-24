@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Service;
+use App\Category;
 use Illuminate\Http\Request;
 use App\Event;
 use Illuminate\Support\Facades\Auth;
@@ -18,7 +18,7 @@ class EventsController extends Controller
      */
     public function index()
     {
-        $events = Event::all();
+        $events = Event::latest('starts_at')->get();
         return view('events.index', compact('events'));
     }
 
@@ -35,7 +35,8 @@ class EventsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     * @param
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -83,9 +84,10 @@ class EventsController extends Controller
         $event->tickets = $request->tickets;
         $event->description = $request->description;
         $event->venue_id = $request->venue_id;
-        $event->photo = $fileNameToStore;;
+        $event->photo = $fileNameToStore;
         $event->user_id = Auth::id();
         $event->save();
+        $this->syncCategories($event, $request->input('categories'));
 
         return redirect('events')->with('success', 'Event has been added successfully!');
     }
@@ -116,8 +118,9 @@ class EventsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
+     * @param Category $category_id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -130,7 +133,7 @@ class EventsController extends Controller
             'starts_at'=>'required',
             'ends_at'=>'required',
             'tickets'=>'required',
-            'photo' => 'image|max:2000',
+            'categories'=>'required'
         ]);
         $event = Event::find($id);
 
@@ -164,11 +167,18 @@ class EventsController extends Controller
         $event->tickets = $request->input('tickets');
         $event->description = $request->input('description');
         $event->venue_id = $request->input('venue_id');
-        $event->photo = $fileNameToStore;;
         $event->user_id = Auth::id();
+        if($request->hasFile('photo')){
+            $event->photo = $fileNameToStore;
+        }
         $event->save();
+        $this->syncCategories($event, $request->input('categories'));
 
-        return redirect('events')->with('success', 'Event has been added successfully!');
+        return redirect('events')->with('success', 'Event has been updated successfully!');
+    }
+
+    public function syncCategories(Event $event, $categories){
+        $event->categories()->sync((array)$categories);
     }
 
     /**
@@ -179,6 +189,8 @@ class EventsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $event = Event::find($id);
+        $event->delete();
+        return redirect('/events')->with('success', 'Event has been successfully Removed!');
     }
 }

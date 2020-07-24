@@ -142,7 +142,7 @@ class ServicesController extends Controller
 
         }
 
-        // Update Post
+        // Update Service
         $service->title = $request->input('title');
         $service->price = $request->input('price');
         $service->description = $request->input('description');
