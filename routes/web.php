@@ -21,6 +21,7 @@ Route::resource('venues', 'VenuesController');
 Route::resource('services', 'ServicesController');
 Route::get('/search', 'IndexController@search');
 
+Route::get('/{any}', 'UserController@index')->where('any', '.*');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

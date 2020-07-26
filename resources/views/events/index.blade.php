@@ -70,6 +70,7 @@
                         @endif
                     </div>
                     {{-- END --}}
+                    <events></events>
 
                     @foreach($events as $event)
                         <div class="col-lg-3 col-md-6 mb-lg-4">
