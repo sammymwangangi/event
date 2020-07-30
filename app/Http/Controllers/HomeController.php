@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Event;
+use App\Service;
+use App\Venue;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +27,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $myvenues = Venue::where('user_id', Auth::id())->paginate(5);
+        $myevents = Event::where('user_id', Auth::id())->paginate(5);
+        $myservices = Service::where('user_id', Auth::id())->paginate(5);
+        return view('home', compact('myvenues', 'myevents', 'myservices'));
     }
 }

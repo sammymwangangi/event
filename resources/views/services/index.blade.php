@@ -4,9 +4,11 @@
     <div class="container-fluid mx-4 my-4">
         <h4 class="text-muted text-center">
             List of Services
-            <span>
-                <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addModal">Add Service</button>
-            </span>
+            @if(Auth::id())
+                <span>
+                    <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addModal">Add Service</button>
+                </span>
+            @endif
         </h4>
 
         <div class="col-sm-12">
@@ -23,7 +25,7 @@
 
         <div class="row row-cols-4">
                 @foreach($services as $service)
-                    <div class="col mb-4">
+                <div class="col mb-4">
                         <div class="card border-0 shadow rounded h-100">
                             @if($service->avatar != 'car.png')
                                 <img src="{{asset('/storage/service/'.$service->avatar)}}" class="card-img-top" alt="service">
@@ -46,16 +48,18 @@
                                     {{ Str::limit($service->description, 70, ' (...)') }}
                                 </p>
                             </div>
-                            <div class="card-footer border-0 bg-dark">
-                                <div class="d-flex justify-content-between align-items-center bd-highlight">
-                                    <div class="mr-auto bd-highlight">
-                                        <a href="" class="card-link btn btn-sm btn-outline-info" data-toggle="modal" data-target="#editModal-{{ $service->id }}">Edit</a>
-                                    </div>
-                                    <div class="bd-highlight">
-                                        <a href="" class="card-link btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#deleteModal-{{ $service->id }}">Delete</a>
-                                    </div>
+                            @if(Auth::id() == $service->user->id)
+                                <div class="card-footer border-0 bg-dark">
+                            <div class="d-flex justify-content-between align-items-center bd-highlight">
+                                <div class="mr-auto bd-highlight">
+                                    <a href="" class="card-link btn btn-sm btn-outline-info" data-toggle="modal" data-target="#editModal-{{ $service->id }}">Edit</a>
+                                </div>
+                                <div class="bd-highlight">
+                                    <a href="" class="card-link btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#deleteModal-{{ $service->id }}">Delete</a>
                                 </div>
                             </div>
+                        </div>
+                            @endif
                         </div>
                     </div>
 
@@ -127,7 +131,7 @@
                     </div>
                 </div>
                 @endforeach
-            </div>
+        </div>
     </div>
 
     <!-- Add Modal -->

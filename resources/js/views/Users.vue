@@ -15,10 +15,10 @@
 <script>
     import axios from 'axios';
     export default {
-        name: "Events",
+        name: "Users",
         data: function () {
             return{
-                title: "My Events",
+                title: "Users",
                 users: []
             }
         },

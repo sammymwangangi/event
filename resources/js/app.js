@@ -24,6 +24,7 @@ const router = new VueRouter({
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('events', require('./components/Events.vue').default);
+Vue.component('venues', require('./components/Venues.vue').default);
 
 const app = new Vue({
     el: '#app',

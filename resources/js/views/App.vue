@@ -1,10 +1,8 @@
 <template>
     <div>
-        <h1>Vue Router Testing</h1>
-
-        <button>
+        <div class="text-center">
             <router-link :to="{ name: 'users' }">Users</router-link>
-        </button>
+        </div>
 
         <div class="container">
             <router-view></router-view>

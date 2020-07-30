@@ -29,12 +29,13 @@
             </li>
         </ul>
         {{-- END TABS --}}
-
-        <h4 class="text-muted text-center mx-4 my-4">
-            <span>
-                <button class="btn btn-primary" data-toggle="modal" data-target="#addModal">Add Event</button>
-            </span>
-        </h4>
+        @if(Auth::id())
+            <h4 class="text-muted text-center mx-4 my-4">
+                <span>
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#addModal">Add Event</button>
+                </span>
+            </h4>
+        @endif
 
         {{-- TAB CONTENT --}}
         <div class="tab-content mt-2" id="myTabContent">
@@ -70,7 +71,6 @@
                         @endif
                     </div>
                     {{-- END --}}
-                    <events></events>
 
                     @foreach($events as $event)
                         <div class="col-lg-3 col-md-6 mb-lg-4">
@@ -105,7 +105,8 @@
                                     </div>
 
                                 </div>
-                                <div class="card-footer border-0 bg-dark">
+                                @if(Auth::id() == $event->user->id)
+                                    <div class="card-footer border-0 bg-dark">
                                     <div class="d-flex justify-content-between align-items-center bd-highlight">
                                         <div class="mr-auto bd-highlight">
                                             <a href="" class="card-link btn btn-sm btn-outline-info" data-toggle="modal" data-target="#editModal-{{ $event->id }}">Edit</a>
@@ -115,6 +116,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                @endif
                             </div>
                         </div>
 
@@ -210,7 +212,7 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <h5 class="text-muted mb-4">Are You sure you want to delete this service?</h5>
+                                        <h5 class="text-muted mb-4">Are You sure you want to delete this event?</h5>
                                         <form action="{{route('events.destroy', $event->id)}}" class="form-inline" method="post">
                                             @csrf
                                             @method('DELETE')

@@ -17,7 +17,7 @@ class ServicesController extends Controller
      */
     public function index()
     {
-        $services = Service::all();
+        $services = Service::latest('created_at')->get();
         return view('services.index', compact('services'));
     }
 
@@ -73,7 +73,7 @@ class ServicesController extends Controller
         $service->title = $request->title;
         $service->price = $request->price;
         $service->description = $request->description;
-        $service->avatar = $fileNameToStore;;
+        $service->avatar = $fileNameToStore;
         $service->user_id = Auth::id();
         $service->save();
 
@@ -132,7 +132,7 @@ class ServicesController extends Controller
             // Upload Image
             $path = $request->file('avatar')->storeAs('public/service', $fileNameToStore);
             // Delete file if exists
-            Storage::delete('public/service/'.$service->avatar);
+            Storage::delete('storage/service/'.$service->avatar);
 
             //Make thumbnails
             $thumbStore = 'thumb.'.$filename.'_'.time().'.'.$extension;

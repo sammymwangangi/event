@@ -1,9 +1,8 @@
 <template>
     <div class="container">
         <h1 class="text-center">VENUES</h1>
-<!--        <div v-for="i in Math.ceil(venues.length / 4)" class="row">-->
         <div class="row">
-            <div v-for="venue in venues" class="col-md-3 col-6 my-1">
+            <div v-for="venue in venues" class="col-lg-3 col-md-6 my-1">
                 <div class="card shadow border-0 h-auto mb-4">
                     <router-link :to="{ name: 'users' }">
                         <img :src="'/service/car.png'"  class="card-img-top img-fluid" alt="event">
@@ -39,14 +38,12 @@
                 </div>
             </div>
         </div>
-        <h1>END VENUES</h1>
     </div>
 
 </template>
 
 <script>
     import axios from 'axios';
-    import {chunk} from 'lodash';
     export default {
         name: "Events",
         data: function () {
@@ -64,28 +61,23 @@
             loadUsers: function () {
                 axios
                     .get('/api/users')
-                .then((response) => {
-                    this.users = response.data.data;
-                })
-                .catch(function (error) {
-                    console.log(error);
-                })
+                    .then((response) => {
+                        this.users = response.data.data;
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    })
             },
             loadVenues: function () {
                 axios
                     .get('/api/venues')
-                .then((response) => {
-                    this.venues = response.data.data;
-                })
-                .catch(function (error) {
-                    console.log(error);
-                })
+                    .then((response) => {
+                        this.venues = response.data.data;
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    })
             }
-        },
-        computed: {
-            // getVenues() {
-            //     return chunk(this.venues)
-            // }
         }
     }
 </script>
