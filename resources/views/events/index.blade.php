@@ -157,12 +157,12 @@
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label for="tickets">No. of Tickets</label>
-                                                    <select class="form-control" id="tickets" name="tickets">
-                                                        <option value="{{$event->tickets}}" {{$event->tickets ? 'selected' : ''}}>{{$event->tickets}}</option>
-                                                        <option value="250" {{($event->tickets ==='250') ? 'selected' : ''}}>250</option>
-                                                        <option value="500" {{($event->tickets ==='500') ? 'selected' : ''}}>500</option>
-                                                        <option value="800" {{($event->tickets ==='800') ? 'selected' : ''}}>800</option>
-                                                        <option value="1000" {{($event->tickets ==='1000') ? 'selected' : ''}}>1000</option>
+                                                    <select class="form-control" id="tickets_left" name="tickets_left">
+                                                        <option value="{{$event->tickets_left}}" {{$event->tickets_left ? 'selected' : ''}}>{{$event->tickets_left}}</option>
+                                                        <option value="250" {{($event->tickets_left ==='250') ? 'selected' : ''}}>250</option>
+                                                        <option value="500" {{($event->tickets_left ==='500') ? 'selected' : ''}}>500</option>
+                                                        <option value="800" {{($event->tickets_left ==='800') ? 'selected' : ''}}>800</option>
+                                                        <option value="1000" {{($event->tickets_left ==='1000') ? 'selected' : ''}}>1000</option>
                                                     </select>
                                                 </div>
                                                 <div class="form-group col-md-6">
@@ -269,12 +269,12 @@
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="tickets">No. of Tickets</label>
-                                <select class="form-control" id="tickets" name="tickets">
+                                <select class="form-control" id="tickets" name="tickets_left">
                                     <option>Select No. of Tickets</option>
-                                    <option value="250" {{($event->tickets ==='250') ? 'selected' : ''}}>250</option>
-                                    <option value="500" {{($event->tickets ==='500') ? 'selected' : ''}}>500</option>
-                                    <option value="800" {{($event->tickets ==='800') ? 'selected' : ''}}>800</option>
-                                    <option value="1000" {{($event->tickets ==='1000') ? 'selected' : ''}}>1000</option>
+                                    <option value="250" {{($event->tickets_left ==='250') ? 'selected' : ''}}>250</option>
+                                    <option value="500" {{($event->tickets_left ==='500') ? 'selected' : ''}}>500</option>
+                                    <option value="800" {{($event->tickets_left ==='800') ? 'selected' : ''}}>800</option>
+                                    <option value="1000" {{($event->tickets_left ==='1000') ? 'selected' : ''}}>1000</option>
                                 </select>
                             </div>
                             <div class="form-group col-md-6">

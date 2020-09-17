@@ -15,11 +15,18 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'IndexController@index');
 
-Route::resource('categories', 'CategoriesController');
-Route::resource('events', 'EventsController');
-Route::resource('venues', 'VenuesController');
-Route::resource('services', 'ServicesController');
+
+Route::resources([
+    'categories' => 'CategoriesController',
+    'events' => 'EventsController',
+    'bookings' => 'BookingsController',
+    'venues' => 'VenuesController',
+    'services' => 'ServicesController',
+]);
+Route::post('bookings', 'BookingsController@book_venue')->name('bookings.book_venue');
+Route::post('bookings', 'BookingsController@book_service')->name('bookings.book_service');
 Route::get('/search', 'IndexController@search');
+
 
 //Route::get('/{any}', 'UserController@index')->where('any', '.*');
 Auth::routes();

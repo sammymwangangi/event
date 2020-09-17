@@ -13,7 +13,7 @@ class IndexController extends Controller
     public function index()
     {
         $categories = Category::all();
-        $events = Event::where('tickets', '>', 20)->orderBy('starts_at','desc')->get();
+        $events = Event::where('tickets_left', '>', 20)->orderBy('starts_at','desc')->get();
         return view('welcome', compact('categories', 'events'));
     }
 

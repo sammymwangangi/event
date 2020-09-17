@@ -31,7 +31,11 @@
                         <p class="text-info">PRICE: <b>KSHs.{{ $venue->price }}</b></p>
                         <p class="text-info">Available Seats: <b>{{ $venue->seats }}</b></p>
                         <div class="text-right">
-                            <button class="btn btn-outline-danger" type="submit">Book</button>
+                            <form action="{{route('bookings.book_venue')}}" method="post">
+                                @csrf
+                                <input type="hidden" name="venue_id" value="{{$venue->id}}">
+                                <button class="btn btn-outline-danger" type="submit">Book</button>
+                            </form>
                             <a href="{{ route('venues.index') }}" class="btn btn-outline-info" type="submit">Back</a>
                         </div>
                     </div>

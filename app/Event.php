@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Event extends Model
 {
+    public $entry_fee;
+
     protected $fillable = [
       'name',
       'description',
@@ -13,11 +15,12 @@ class Event extends Model
       'starts_at',
       'ends_at',
       'photo',
-      'tickets',
+      'tickets_left',
       'location',
       'user_id',
       'venue_id'
     ];
+
 
     public function user(){
         return $this->belongsTo('App\User');
@@ -31,5 +34,8 @@ class Event extends Model
      */
     public function categories(){
         return $this->belongsToMany('App\Category', 'category_event', 'event_id', 'category_id');
+    }
+    public function bookings(){
+        return $this->hasMany('App\Booking');
     }
 }

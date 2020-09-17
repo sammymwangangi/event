@@ -15,7 +15,7 @@ $factory->define(Event::class, function (Faker $faker) {
         'starts_at' => $faker->dateTime('now'),
         'ends_at' => $faker->dateTime('+01 days'),
         'photo' => 'car.png',
-        'tickets' => $faker->numberBetween($min = 200, $max = 500),
+        'tickets_left' => $faker->numberBetween($min = 200, $max = 500),
         'location' => $faker->state,
     ];
 });

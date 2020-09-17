@@ -27,29 +27,26 @@
                 <p class="lead">{{ $event->description }}</p>
                 <p><b>Starting From:</b> {{ $event->starts_at }}</p>
                 <p><b>Ending at: </b>{{ $event->ends_at }}</p>
-                <h4>Tickets left: <b>{{$event->tickets}}</b></h4>
+                <h4>Tickets left: <b>{{$event->tickets_left}}</b></h4>
                 <div class="card text-white bg-dark mb-3">
                     <div class="card-body">
                         <h4 class="card-title">Buy Tickets</h4>
                         <p><b>Entry Fee:</b> {{ $event->entry_fee }}</p>
-                        <form action="" method="post">
+                        <form action="{{route('bookings.store')}}" method="post">
+                            @csrf
                             <div class="form-group row justify-content-between">
                                 <label for="inputPassword" class="col-sm-4 col-form-label"><b>Choose No. of Tickets</b></label>
                                 <div class="col-sm-8">
-                                    <select class="form-control" id="exampleFormControlSelect1">
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                        <option>5</option>
-                                        <option>6</option>
-                                        <option>7</option>
-                                        <option>8</option>
-                                        <option>9</option>
-                                        <option>10</option>
+                                    <select class="form-control" id="exampleFormControlSelect1" name="tickets">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
                                     </select>
                                 </div>
                             </div>
+                            <input type="hidden" name="total" value="{{$event->entry_fee}}">
+                            <input type="hidden" name="event_id" value="{{$event->id}}">
 
                             <div class="form-group text-right">
                                 <button class="btn btn-outline-danger" type="submit">Book</button>

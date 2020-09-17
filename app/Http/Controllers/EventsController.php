@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Category;
 use Illuminate\Http\Request;
 use App\Event;
+use App\Booking;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
@@ -48,7 +49,7 @@ class EventsController extends Controller
             'entry_fee'=>'required',
             'starts_at'=>'required',
             'ends_at'=>'required',
-            'tickets'=>'required',
+            'tickets_left'=>'required',
             'photo' => 'image|max:2000',
         ]);
 
@@ -81,7 +82,7 @@ class EventsController extends Controller
         $event->entry_fee = $request->entry_fee;
         $event->starts_at = $request->starts_at;
         $event->ends_at = $request->ends_at;
-        $event->tickets = $request->tickets;
+        $event->tickets_left = $request->tickets_left;
         $event->description = $request->description;
         $event->venue_id = $request->venue_id;
         $event->photo = $fileNameToStore;
@@ -100,8 +101,9 @@ class EventsController extends Controller
      */
     public function show($id)
     {
+        $bookings = Booking::all();
         $event = Event::find($id);
-        return view('events.show', compact('event'));
+        return view('events.show', compact('event', 'bookings'));
     }
 
     /**
@@ -132,7 +134,7 @@ class EventsController extends Controller
             'entry_fee'=>'required',
             'starts_at'=>'required',
             'ends_at'=>'required',
-            'tickets'=>'required',
+            'tickets_left'=>'required',
             'categories'=>'required'
         ]);
         $event = Event::find($id);
@@ -164,7 +166,7 @@ class EventsController extends Controller
         $event->entry_fee = $request->input('entry_fee');
         $event->starts_at = $request->input('starts_at');
         $event->ends_at = $request->input('ends_at');
-        $event->tickets = $request->input('tickets');
+        $event->tickets_left = $request->input('tickets_left');
         $event->description = $request->input('description');
         $event->venue_id = $request->input('venue_id');
         $event->user_id = Auth::id();
@@ -192,5 +194,17 @@ class EventsController extends Controller
         $event = Event::find($id);
         $event->delete();
         return redirect('/events')->with('success', 'Event has been successfully Removed!');
+    }
+
+    public function book_event(Request $request)
+    {
+        $event_booking = new BookEvent();
+        $event_booking->tickets = $request->tickets;
+        $event_booking->total_price = $request->total_price;
+        $event_booking->event_id = $request->event_id;
+        $event_booking->user_id = Auth::id();
+        $event_booking->save();
+
+        return redirect('events')->with('success', 'Event has been booked successfully!');
     }
 }

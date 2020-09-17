@@ -23,4 +23,8 @@ class Venue extends Model
     {
         return $this->hasMany('App\Event');
     }
+
+    public function venue_bookings(){
+        return $this->hasMany('App\VenueBooking');
+    }
 }
