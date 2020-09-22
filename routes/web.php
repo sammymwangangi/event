@@ -29,6 +29,7 @@ Route::resource('events', 'EventsController');
 Route::resource('bookings', 'BookingsController');
 Route::resource('venues', 'VenuesController');
 Route::resource('services', 'ServicesController');
+Route::resource('expenses', 'ExpenseController');
 Route::post('booking', 'BookingsController@book_venue')->name('book_venue');
 Route::post('booking', 'BookingsController@book_service')->name('book_service');
 

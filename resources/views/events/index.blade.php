@@ -77,7 +77,7 @@
                             <div class="card shadow border-0 h-100">
                                 <a href="{{route('events.show', $event->id)}}">
                                     @if($event->photo != 'car.png')
-                                        <img src="/storage/event/{{ $event->photo }}" class="card-img-top img-fluid" alt="event">
+                                        <img src="{{url('storage/events/'.$event->photo)}}" class="card-img-top img-fluid" alt="event">
                                     @else
                                         <img src="{{asset('/service/car.png')}}" class="card-img-top" alt="service">
                                     @endif
@@ -101,9 +101,6 @@
                                         @foreach($event->categories as $category)
                                             <a href="{{route('categories.show', $category->id)}}" class="badge badge-pill badge-warning">{{ $category->name }}</a>
                                         @endforeach
-
-                                        {{$event->amount}}
-
                                     </div>
 
                                 </div>

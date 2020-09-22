@@ -65,7 +65,7 @@
                                 <div class="card-body">
                                     <h5 class="card-title">{{$booking->event->name}}</h5>
                                     <p class="card-text">{{$booking->event->description}}</p>
-                                    <p class="card-text">Total:<small class="text-muted">{{$booking->tickets * $booking->event->entry_fee}}</small></p>
+                                    <p class="card-text">Total:<small class="text-muted"> KSH {{$booking->total}}</small></p>
                                 </div>
                             </div>
                         </div>

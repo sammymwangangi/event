@@ -17,7 +17,8 @@
         <div class="row no-gutters bg-light position-relative">
             <div class="col-md-6 mb-md-0 p-md-4">
                 @if($event->photo != 'car.png')
-                    <img src="/storage/events/{{ $event->photo }}" class="card-img-top" alt="event">
+{{--                    <img src="/storage/events/{{ $event->photo }}" class="card-img-top" alt="event">--}}
+                    <img src="{{ asset('events/'.$event->photo) }}" class="card-img-top" alt="event" />
                 @else
                     <img src="{{asset('/service/car.png')}}" class="card-img-top" alt="service">
                 @endif
