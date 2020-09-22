@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\ServiceBooking;
 use Illuminate\Http\Request;
 use App\Booking;
+use App\Event;
 use App\VenueBooking;
 use Auth;
 
@@ -54,22 +55,15 @@ class BookingsController extends Controller
     {
         $booking = new Booking();
         $booking->tickets = $request->tickets;
-        $booking->total = $request->total;
         $booking->event_id = $request->event_id;
         $booking->user_id = Auth::id();
+//        Calculate Total
+        $event = Event::find($booking->event_id);
+        $booking->total = $event->amount * $booking->tickets;
+
         $booking->save();
 
         return redirect('events')->with('success', 'Event has been booked successfully');
-    }
-
-    public function book_venue(Request $request)
-    {
-        $venue_booking = new VenueBooking();
-        $venue_booking->venue_id = $request->venue_id;
-        $venue_booking->user_id = Auth::id();
-        $venue_booking->save();
-
-        return redirect('bookings')->with('success', 'Venue has been booked successfully');
     }
 
     public function book_service(Request $request)
@@ -80,6 +74,16 @@ class BookingsController extends Controller
         $service_booking->save();
 
         return redirect('bookings')->with('success', 'Service has been booked successfully');
+    }
+
+    public function book_venue(Request $request)
+    {
+        $venue_booking = new VenueBooking();
+        $venue_booking->venue_id = $request->venue_id;
+        $venue_booking->user_id = Auth::id();
+        $venue_booking->save();
+
+        return redirect('bookings')->with('success', 'Venue has been booked successfully');
     }
 
     /**

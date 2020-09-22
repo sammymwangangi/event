@@ -19,7 +19,7 @@ class CreateEventsTable extends Migration
             $table->foreignId('venue_id')->constrained('venues')->onDelete('cascade');
             $table->string('name');
             $table->text('description');
-            $table->float('entry_fee', 8, 2);
+            $table->float('amount', 8, 2);
             $table->dateTime('starts_at');
             $table->dateTime('ends_at');
             $table->string('photo');

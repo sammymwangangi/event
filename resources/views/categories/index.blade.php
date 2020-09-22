@@ -33,6 +33,35 @@
                             <a href="" class="badge badge-danger badge-pill" data-toggle="modal" data-target="#deleteModal-{{ $category->id }}">Delete</a>
                         </li>
                     </div>
+                    <!-- Edit Modal -->
+    <div class="modal fade" id="editModal-{{ $category->id }}" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLabel">Edit Category</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{route('categories.update', $category->id)}}" class="form-inline" method="post">
+                        @csrf
+                        @method('PUT')
+                        <div class="form-group mb-2">
+                            <label for="name">Name</label>
+                        </div>
+                        <div class="form-group mx-sm-3 mb-2">
+                            <input type="text" class="form-control" name="name" id="name" value="{{ $category->name }}">
+                        </div>
+                        <button type="submit" class="btn btn-success mb-2">Update</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
                 @endforeach
             </div>
         </ul>
@@ -67,35 +96,7 @@
         </div>
     </div>
 
-    <!-- Edit Modal -->
-    <div class="modal fade" id="editModal-{{ $category->id }}" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="editModalLabel">Edit Category</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form action="{{route('categories.update', $category->id)}}" class="form-inline" method="post">
-                        @csrf
-                        @method('PUT')
-                        <div class="form-group mb-2">
-                            <label for="name">Name</label>
-                        </div>
-                        <div class="form-group mx-sm-3 mb-2">
-                            <input type="text" class="form-control" name="name" id="name" value="{{ $category->name }}">
-                        </div>
-                        <button type="submit" class="btn btn-success mb-2">Update</button>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    
 
     <!-- Delete Modal -->
     <div class="modal fade" id="deleteModal-{{ $category->id }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">

@@ -102,6 +102,8 @@
                                             <a href="{{route('categories.show', $category->id)}}" class="badge badge-pill badge-warning">{{ $category->name }}</a>
                                         @endforeach
 
+                                        {{$event->amount}}
+
                                     </div>
 
                                 </div>
@@ -152,8 +154,8 @@
                                                     <input type="datetime-local" class="form-control" name="ends_at" id="ends_at" value="{{ \Carbon\Carbon::parse($event->ends_at)->format('Y-m-d\TH:i:s') }}">
                                                 </div>
                                                 <div class="form-group col-md-6">
-                                                    <label for="entry_fee">Entry Fee</label>
-                                                    <input type="number" class="form-control" id="entry_fee" name="entry_fee" value="{{ $event->entry_fee }}">
+                                                    <label for="amount">Entry Fee</label>
+                                                    <input type="number" class="form-control" id="amount" name="amount" value="{{ $event->amount }}">
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label for="tickets">No. of Tickets</label>
@@ -264,8 +266,8 @@
                                 <input type="datetime-local" class="form-control" name="ends_at" id="ends_at">
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="entry_fee">Entry Fee</label>
-                                <input type="number" class="form-control" id="entry_fee" name="entry_fee">
+                                <label for="amount">Entry Fee</label>
+                                <input type="number" class="form-control" id="amount" name="amount">
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="tickets">No. of Tickets</label>

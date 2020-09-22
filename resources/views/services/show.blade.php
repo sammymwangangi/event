@@ -30,7 +30,7 @@
                         <h4 class="card-title">Book Service</h4>
                         <p class="text-info">PRICE: <b>KSHs.{{ $service->price }}</b></p>
                         <div class="text-right">
-                            <form action="{{route('bookings.book_service')}}" method="post">
+                            <form action="{{route('book_service')}}" method="post">
                                 @csrf
                                 <input type="hidden" name="service_id" value="{{$service->id}}">
                                 <button class="btn btn-outline-info" type="submit">Book</button>

@@ -22,7 +22,7 @@ class Event extends JsonResource
             'venue' => new VenueResource($this->venue),
             'name' => $this->name,
             'description' => $this->description,
-            'entry_fee' => $this->entry_fee,
+            'amount' => $this->amount,
             'starts_at' => $this->starts_at,
             'ends_at' => $this->ends_at,
             'location' => $this->location,

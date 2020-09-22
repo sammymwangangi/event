@@ -46,7 +46,7 @@ class EventsController extends Controller
             'name'=>'required',
             'location'=>'required',
             'description'=>'required',
-            'entry_fee'=>'required',
+            'amount'=>'required',
             'starts_at'=>'required',
             'ends_at'=>'required',
             'tickets_left'=>'required',
@@ -64,13 +64,13 @@ class EventsController extends Controller
             // Filename to store
             $fileNameToStore= $filename.'_'.time().'.'.$extension;
             // Upload Image
-            $path = $request->file('photo')->storeAs('public/event', $fileNameToStore);
+            $path = $request->file('photo')->storeAs('events', $fileNameToStore);
 
             // make thumbnails
             $thumbStore = 'thumb.'.$filename.'_'.time().'.'.$extension;
             $thumb = Image::make($request->file('photo')->getRealPath());
             $thumb->resize(80, 80);
-            $thumb->save('storage/event/'.$thumbStore);
+            $thumb->save('events'.$thumbStore);
 
         } else {
             $fileNameToStore = 'car.png';
@@ -79,7 +79,7 @@ class EventsController extends Controller
         $event = new Event();
         $event->name = $request->name;
         $event->location = $request->location;
-        $event->entry_fee = $request->entry_fee;
+        $event->amount = $request->amount;
         $event->starts_at = $request->starts_at;
         $event->ends_at = $request->ends_at;
         $event->tickets_left = $request->tickets_left;
@@ -131,7 +131,7 @@ class EventsController extends Controller
             'name'=>'required',
             'location'=>'required',
             'description'=>'required',
-            'entry_fee'=>'required',
+            'amount'=>'required',
             'starts_at'=>'required',
             'ends_at'=>'required',
             'tickets_left'=>'required',
@@ -150,20 +150,20 @@ class EventsController extends Controller
             // Filename to store
             $fileNameToStore= $filename.'_'.time().'.'.$extension;
             // Upload Image
-            $path = $request->file('photo')->storeAs('public/event', $fileNameToStore);
-            Storage::delete('public/event/'.$event->photo);
+            $path = $request->file('photo')->storeAs('events', $fileNameToStore);
+            Storage::delete('events'.$event->photo);
 
             // make thumbnails
             $thumbStore = 'thumb.'.$filename.'_'.time().'.'.$extension;
             $thumb = Image::make($request->file('photo')->getRealPath());
             $thumb->resize(80, 80);
-            $thumb->save('storage/event/'.$thumbStore);
+            $thumb->save('events'.$thumbStore);
 
         }
 
         $event->name = $request->input('name');
         $event->location = $request->input('location');
-        $event->entry_fee = $request->input('entry_fee');
+        $event->amount = $request->input('amount');
         $event->starts_at = $request->input('starts_at');
         $event->ends_at = $request->input('ends_at');
         $event->tickets_left = $request->input('tickets_left');

@@ -17,7 +17,7 @@
         <div class="row no-gutters bg-light position-relative">
             <div class="col-md-6 mb-md-0 p-md-4">
                 @if($event->photo != 'car.png')
-                    <img src="/storage/event/{{ $event->photo }}" class="card-img-top" alt="event">
+                    <img src="/storage/events/{{ $event->photo }}" class="card-img-top" alt="event">
                 @else
                     <img src="{{asset('/service/car.png')}}" class="card-img-top" alt="service">
                 @endif
@@ -31,7 +31,7 @@
                 <div class="card text-white bg-dark mb-3">
                     <div class="card-body">
                         <h4 class="card-title">Buy Tickets</h4>
-                        <p><b>Entry Fee:</b> {{ $event->entry_fee }}</p>
+                        <p><b>Entry Fee:</b> {{ $event->amount }}</p>
                         <form action="{{route('bookings.store')}}" method="post">
                             @csrf
                             <div class="form-group row justify-content-between">
@@ -45,7 +45,6 @@
                                     </select>
                                 </div>
                             </div>
-                            <input type="hidden" name="total" value="{{$event->entry_fee}}">
                             <input type="hidden" name="event_id" value="{{$event->id}}">
 
                             <div class="form-group text-right">
