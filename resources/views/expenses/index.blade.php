@@ -4,11 +4,9 @@
 <div class="container py-4">
     <h4>Total Income</h4>
     {{$bookings->sum('total')}}
-
     <hr>
 
     <h4>My Expenses</h4>
-
     <h6>Venue Bookings Expenses</h6>
     {{$venue_bookings->sum('venue.price')}}
 

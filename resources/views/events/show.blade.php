@@ -48,8 +48,13 @@
                             </div>
                             <input type="hidden" name="event_id" value="{{$event->id}}">
 
-                            <div class="form-group text-right">
+                            <div class="form-group">
+                                @auth
                                 <button class="btn btn-outline-danger" type="submit">Book</button>
+                                @endauth
+                                @guest
+                                <div class="alert alert-warning">You must be logged in to book an event!!!</div>
+                                @endguest
                                 <a href="{{ route('events.index') }}" class="btn btn-outline-info" type="submit">Back</a>
                             </div>
                         </form>
