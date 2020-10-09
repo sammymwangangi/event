@@ -14,21 +14,23 @@
 
         <hr class="p-2">
 
-        <div class="row no-gutters bg-light position-relative">
+        <div class="row no-gutters bg-light position-relative mb-5">
             <div class="col-md-6 mb-md-0 p-md-4">
                 @if($event->photo != 'car.png')
-{{--                    <img src="/storage/events/{{ $event->photo }}" class="card-img-top" alt="event">--}}
+                    {{-- <img src="/storage/events/{{ $event->photo }}" class="card-img-top" alt="event"> --}}
                     <img src="{{ asset('events/'.$event->photo) }}" class="card-img-top" alt="event" />
                 @else
                     <img src="{{asset('/service/car.png')}}" class="card-img-top" alt="service">
                 @endif
-            </div>
-            <div class="col-md-6 position-static p-4 pl-md-0">
-                <h5 class="mt-0 font-weight-bold">Venue: <a href="{{ route('venues.show', $event->venue->id) }}">{{ $event->venue->name }}</a></h5>
+
+                <h5 class="mt-2 font-weight-bold">Venue: <a href="{{ route('venues.show', $event->venue->id) }}">{{ $event->venue->name }}</a></h5>
                 <p class="lead">{{ $event->description }}</p>
                 <p><b>Starting From:</b> {{ $event->starts_at }}</p>
                 <p><b>Ending at: </b>{{ $event->ends_at }}</p>
                 <h4>Tickets left: <b>{{$event->tickets_left}}</b></h4>
+            </div>
+            <div class="col-md-6 position-static p-4 pl-md-0">
+                
                 <div class="card text-white bg-dark mb-3">
                     <div class="card-body">
                         <h4 class="card-title">Buy Tickets</h4>
@@ -53,7 +55,7 @@
                                 <button class="btn btn-outline-danger" type="submit">Book</button>
                                 @endauth
                                 @guest
-                                <div class="alert alert-warning">You must be logged in to book an event!!!</div>
+                                <div class="alert alert-danger">You must be logged in to book an event!!!</div>
                                 @endguest
                                 <a href="{{ route('events.index') }}" class="btn btn-outline-info" type="submit">Back</a>
                             </div>
