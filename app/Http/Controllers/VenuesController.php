@@ -41,10 +41,10 @@ class VenuesController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name'=>'required',
-            'price'=>'required',
+            'name'=>'required|string',
+            'price'=>'required|min:20',
             'address'=>'required',
-            'seats'=>'required',
+            'seats'=>'required|min:1',
         ]);
 
         // Handle File Upload

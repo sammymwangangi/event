@@ -40,9 +40,9 @@ class ServicesController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title'=>'required',
-            'price'=>'required',
-            'description'=>'required',
+            'title'=>'required|string',
+            'price'=>'required|min:20',
+            'description'=>'required|string|min:20',
             'avatar' => 'image|max:2000',
         ]);
 
