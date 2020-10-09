@@ -24,6 +24,11 @@ Route::get('/', 'IndexController@index');
 //     'services' => 'ServicesController',
 // ]);
 
+//Route::get('/{any}', 'UserController@index')->where('any', '.*');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
 Route::resource('categories', 'CategoriesController');
 Route::resource('events', 'EventsController');
 Route::resource('bookings', 'BookingsController');
@@ -32,11 +37,16 @@ Route::resource('services', 'ServicesController');
 Route::resource('expenses', 'ExpenseController');
 Route::post('booking', 'BookingsController@book_venue')->name('book_venue');
 Route::post('booking', 'BookingsController@book_service')->name('book_service');
-
 Route::get('/search', 'IndexController@search');
 
+Route::get('changeStatus', 'DashboardController@ChangeBookingStatus');
 
-//Route::get('/{any}', 'UserController@index')->where('any', '.*');
-Auth::routes();
+// DASHBOARD
+// 
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('dashboard', 'DashboardController@index')->name('dashboard.index');
+Route::get('dashboard/expenses', 'ExpenseController@index')->name('dashboard.expenses');
+Route::get('dashboard/print-bookings','DashboardController@print_bookings');
+Route::get('dashboard/print-expenses','ExpenseController@print_expenses');
+
+

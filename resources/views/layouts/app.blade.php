@@ -49,8 +49,8 @@
                             </a>
                         </li>
                         <li class="nav-item mr-4">
-                            <a href="{{ route('expenses.index') }}">
-                                Expenses Tracker
+                            <a href="{{ route('dashboard.index') }}">
+                                Dashboard
                             </a>
                         </li>
 

@@ -10,6 +10,7 @@ use App\ServiceBooking;
 use App\VenueBooking;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class ExpenseController extends Controller
 {
@@ -25,7 +26,7 @@ class ExpenseController extends Controller
         $venue_bookings = VenueBooking::all();
         $service_bookings = ServiceBooking::all();
 
-        return view('expenses.index', compact('bookings', 'service_bookings', 'venue_bookings'));
+        return view('dashboard.expenses', compact('bookings', 'service_bookings', 'venue_bookings'));
     }
 
     /**
@@ -92,5 +93,23 @@ class ExpenseController extends Controller
     public function destroy(Expense $expense)
     {
         //
+    }
+
+    public function print_expenses()
+    {
+
+        $bookings = Booking::all();
+        $venue_bookings = VenueBooking::all();
+        $service_bookings = ServiceBooking::all();
+
+        $pdf = PDF::loadView('dashboard.print-expenses',
+            [
+                'bookings' => $bookings,
+                'venue_bookings' => $venue_bookings,
+                'service_bookings' => $service_bookings
+            ]
+        )
+            ->setPaper('a4', 'landscape');
+        return $pdf->stream('bookings-list.pdf');
     }
 }
