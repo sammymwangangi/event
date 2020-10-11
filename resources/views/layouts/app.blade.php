@@ -49,11 +49,9 @@
                             </a>
                         </li>
                         <li class="nav-item mr-4">
-                            @auth
                             <a href="{{ route('dashboard.index') }}">
                                 Dashboard
                             </a>
-                            @endauth
                         </li>
 
                     </ul>
