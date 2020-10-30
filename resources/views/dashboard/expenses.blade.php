@@ -26,16 +26,41 @@
     {{ $venue_bookings->sum('venue.price') + $service_bookings->sum('service.price') }}
 
     <hr>
-    <h1>Balance</h1>
-    @if($bookings->sum('total') - ($venue_bookings->sum('venue.price') + $service_bookings->sum('service.price')) < 0)
-        <div class="alert alert-danger" role="alert">
-            Your account is on Credit. You need to generate more income!!!
-        </div>
-    @else
-        <p>Your balance is KSh. {{$bookings->sum('total') - ($venue_bookings->sum('venue.price') + $service_bookings->sum('service.price')) }}
-            <span>You can book 1 or 2 services or venues</span>
-        </p>
-    @endif
+    <h1>Net Profit</h1>
+    <p>
+        {{$bookings->sum('total') - ($venue_bookings->sum('venue.price') + $service_bookings->sum('service.price')) }}
+    </p>
+
+
+    {{-- <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">First</th>
+          <th scope="col">Last</th>
+          <th scope="col">Handle</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">1</th>
+          <td>Mark</td>
+          <td>Otto</td>
+          <td>@mdo</td>
+        </tr>
+        <tr>
+          <th scope="row">2</th>
+          <td>Jacob</td>
+          <td>Thornton</td>
+          <td>@fat</td>
+        </tr>
+        <tr>
+          <th scope="row">3</th>
+          <td colspan="2">Larry the Bird</td>
+          <td>@twitter</td>
+        </tr>
+      </tbody>
+    </table> --}}
+
 </div>
 
 @endsection

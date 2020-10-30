@@ -67,12 +67,12 @@ padding: .2em .8em;
               <h6>&nbsp;</h6>
 
 <table id="layout">
-    <caption>EXPENSES</caption>
+    <caption>TRACKING EXPENSES</caption>
      <thead>
         <tr class="">
-            <th>TOTAL INCOME</th>
-            <th>TOTAL EXPENSES</th>
-            <th>WALLET BALANCE</th>
+            <th>INCOME</th>
+            <th>EXPENSES</th>
+            <th>NET PROFIT</th>
         </tr>
     </thead>
     <tbody>

@@ -46,7 +46,7 @@ class EventsController extends Controller
             'name'=>'required|string',
             'location'=>'required|string',
             'description'=>'required|string|min:20',
-            'amount'=>'required|min:20',
+            'amount'=>'required|min:-1',
             'starts_at'=>'required|date|after:tomorrow',
             'ends_at'=>'required|date|after:starts_at',
             'tickets_left'=>'required|min:1',
@@ -173,8 +173,8 @@ class EventsController extends Controller
         if($request->hasFile('photo')){
             $event->photo = $fileNameToStore;
         }
-        $event->save();
         $this->syncCategories($event, $request->input('categories'));
+        $event->save();
 
         return redirect('events')->with('success', 'Event has been updated successfully!');
     }

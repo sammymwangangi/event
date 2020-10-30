@@ -12,5 +12,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call(CategoryEventSeeder::class);
+        $this->call(LaratrustSeeder::class);
+        // $this->call(RolesAndPermissionsSeeder::class);
     }
 }

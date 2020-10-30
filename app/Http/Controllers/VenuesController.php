@@ -42,7 +42,7 @@ class VenuesController extends Controller
     {
         $this->validate($request, [
             'name'=>'required|string',
-            'price'=>'required|min:20',
+            'price'=>'required|min:3',
             'address'=>'required',
             'seats'=>'required|min:1',
         ]);
@@ -61,10 +61,10 @@ class VenuesController extends Controller
             $path = $request->file('image')->storeAs('public/venue', $fileNameToStore);
 
             // make thumbnails
-            $thumbStore = 'thumb.'.$filename.'_'.time().'.'.$extension;
-            $thumb = Image::make($request->file('image')->getRealPath());
-            $thumb->resize(80, 80);
-            $thumb->save('storage/venue/'.$thumbStore);
+            // $thumbStore = 'thumb.'.$filename.'_'.time().'.'.$extension;
+            // $thumb = Image::make($request->file('image')->getRealPath());
+            // $thumb->resize(80, 80);
+            // $thumb->save('storage/venue/'.$thumbStore);
 
         } else {
             $fileNameToStore = 'car.png';

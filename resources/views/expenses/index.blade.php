@@ -20,15 +20,10 @@
 
     <hr>
     <h1>Balance</h1>
-    @if($bookings->sum('total') - ($venue_bookings->sum('venue.price') + $service_bookings->sum('service.price')) < 0)
-        <div class="alert alert-danger" role="alert">
-            Your account is on Credit. You've spent too much than your account can withstand!!!
-        </div>
-    @else
-        <p>Your balance is KSh. {{$bookings->sum('total') - ($venue_bookings->sum('venue.price') + $service_bookings->sum('service.price')) }}
-            <span>You can book 1 or 2 services or venues</span>
-        </p>
-    @endif
+    
+    <p>
+        {{$bookings->sum('total') - ($venue_bookings->sum('venue.price') + $service_bookings->sum('service.price')) }}
+    </p>
 </div>
 
 @endsection

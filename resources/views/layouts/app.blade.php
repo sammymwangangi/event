@@ -49,10 +49,17 @@
                             </a>
                         </li>
                         <li class="nav-item mr-4">
+                            <a href="{{ route('categories.index') }}">
+                                Categories<sup><span class="badge badge-warning rounded-circle">{{$categories->count()}}</span></sup>
+                            </a>
+                        </li>
+                        @permission('events-create')
+                        <li class="nav-item mr-4">
                             <a href="{{ route('dashboard.index') }}">
                                 Dashboard
                             </a>
                         </li>
+                        @endpermission
 
                     </ul>
 
@@ -102,6 +109,11 @@
     <script>
         $('#categories').select2({
             placeholder: 'Select a category'
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('.js-example-basic-multiple').select2();
         });
     </script>
     <script src="{{ asset('js/pixel.min.js') }}" defer></script>

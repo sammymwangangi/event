@@ -28,13 +28,14 @@
       <span>Bookings</span>
     </a>
   </li>
-
+  @ability('admin,event-owner', 'events-create')
   <li class="nav-item">
     <a class="nav-link" href="{{route('dashboard.expenses')}}">
       <i class="fas fa-fw fa-dollar-sign"></i>
       <span>Expenses Tracker</span>
     </a>
   </li>
+  @endability
 
   
   <!-- Divider -->

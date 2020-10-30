@@ -30,13 +30,13 @@
                 </div>
             </li>
         </ul>
-        @if(Auth::id())
+        @role('venue_owner')
             <h4 class="text-muted text-center mx-4 my-4">
                 <span>
                     <button class="btn btn-primary" data-toggle="modal" data-target="#addModal">Add Venue</button>
                 </span>
             </h4>
-        @endif
+        @endrole
         {{-- PRINT ERRORS --}}
         <div class="col-sm-12">
             @if ($errors->any())
@@ -79,13 +79,17 @@
                                     <img src="{{asset('/service/car.png')}}" class="card-img-top" alt="venue">
                                 @endif
                                 <div class="card-body text-left">
-                                    <h5 class="card-title text-uppercase">
-                                        <a href="{{route('venues.show', $venue->id)}}">{{ $venue->name }}</a>
-                                    </h5>
+                                    
                                     <div class="d-flex justify-content-between align-items-center card-subtitle mb-2">
-                                        <h4 class="mr-auto bd-highlight font-weight-light">
+                                        <h5 class="mr-auto card-title text-uppercase">
+                                            <a href="{{route('venues.show', $venue->id)}}">{{ $venue->name }}</a>
+                                        </h5>
+                                        <a class="btn btn-info btn-sm" href="{{route('venues.show', $venue->id)}}">Book</a>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center card-subtitle mb-2">
+                                        <h5 class="mr-auto font-weight-light">
                                             KSHs. {{ $venue->price }}
-                                        </h4>
+                                        </h5>
                                         <h6 class="text-secondary">
                                             By: <b>{{ $venue->user->name }}</b>
                                         </h6>

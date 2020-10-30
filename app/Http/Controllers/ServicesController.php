@@ -41,7 +41,7 @@ class ServicesController extends Controller
     {
         $request->validate([
             'title'=>'required|string',
-            'price'=>'required|min:20',
+            'price'=>'required|min:3',
             'description'=>'required|string|min:20',
             'avatar' => 'image|max:2000',
         ]);
@@ -60,10 +60,10 @@ class ServicesController extends Controller
             $path = $request->file('avatar')->storeAs('public/service', $fileNameToStore);
 
             // make thumbnails
-            $thumbStore = 'thumb.'.$filename.'_'.time().'.'.$extension;
-            $thumb = Image::make($request->file('avatar')->getRealPath());
-            $thumb->resize(80, 80);
-            $thumb->save('storage/service/'.$thumbStore);
+            // $thumbStore = 'thumb.'.$filename.'_'.time().'.'.$extension;
+            // $thumb = Image::make($request->file('avatar')->getRealPath());
+            // $thumb->resize(80, 80);
+            // $thumb->save('storage/service/'.$thumbStore);
 
         } else {
             $fileNameToStore = 'car.png';

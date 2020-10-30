@@ -30,11 +30,13 @@
         </ul>
         {{-- END TABS --}}
         @if(Auth::id())
+        @permission('events-create')
             <h4 class="text-muted text-center mx-4 my-4">
                 <span>
                     <button class="btn btn-primary" data-toggle="modal" data-target="#addModal">Add Event</button>
                 </span>
             </h4>
+        @endpermission
         @endif
 
         {{-- TAB CONTENT --}}
@@ -174,8 +176,8 @@
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label for="categories">Categories</label>
-                                                    <select class="form-control" id="categories" name="categories[]"
-                                                            multiple>
+                                                    <select class="form-control js-example-basic-multiple" id="categories-edit" name="categories[]"
+                                                            multiple="multiple">
                                                         @foreach($categories as $category)
                                                             <option value="{{$category->id}}" {{$category->id ? 'selected' : ''}}>{{$category->name}}</option>
                                                         @endforeach

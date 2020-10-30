@@ -11,6 +11,7 @@ use App\VenueBooking;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade as PDF;
+use Auth;
 
 class ExpenseController extends Controller
 {
@@ -28,8 +29,12 @@ class ExpenseController extends Controller
     public function index()
     {
         $bookings = Booking::all();
-        $venue_bookings = VenueBooking::all();
-        $service_bookings = ServiceBooking::all();
+        $venue_bookings = VenueBooking::where(['user_id'=>Auth::user()->id])->orderBy('id', 'desc')->get();
+        $service_bookings = ServiceBooking::where(['user_id'=>Auth::user()->id])->orderBy('id', 'desc')->get();
+
+        // $bookings = Booking::all();
+        // $venue_bookings = VenueBooking::all();
+        // $service_bookings = ServiceBooking::all();
 
         return view('dashboard.expenses', compact('bookings', 'service_bookings', 'venue_bookings'));
     }

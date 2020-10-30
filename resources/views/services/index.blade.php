@@ -5,9 +5,11 @@
         <h4 class="text-muted text-center">
             List of Services
             @if(Auth::id())
+            @permission('services-create')
                 <span>
                     <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addModal">Add Service</button>
                 </span>
+            @endpermission
             @endif
         </h4>
 

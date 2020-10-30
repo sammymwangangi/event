@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\ServiceBooking;
 use Illuminate\Http\Request;
 use App\Booking;
 use App\Event;
+use App\ServiceBooking;
 use App\VenueBooking;
 use Auth;
 
@@ -18,17 +18,27 @@ class BookingsController extends Controller
      */
     public function index()
     {
-//        $bookings = Booking::all();
-        $bookings = Booking::where('approved', 0)
+        $bookings = Booking::where(['user_id'=>Auth::user()->id])->where('approved', 0)
             ->orderBy('id', 'desc')
             ->take(10)
             ->get();
 
-        $approved_bookings = Booking::where('approved', 1)
+        $approved_bookings = Booking::where(['user_id'=>Auth::user()->id])->where('approved', 1)
             ->orderBy('id', 'desc')
             ->take(10)
             ->get();
-        return view('bookings.index', compact('approved_bookings', 'bookings'));
+
+        $venue_bookings = VenueBooking::where(['user_id'=>Auth::user()->id])
+            ->orderBy('id', 'desc')
+            ->take(10)
+            ->get();
+
+        $service_bookings = ServiceBooking::where(['user_id'=>Auth::user()->id])
+            ->orderBy('id', 'desc')
+            ->take(10)
+            ->get();
+
+        return view('bookings.index', compact('approved_bookings', 'bookings', 'service_bookings', 'venue_bookings'));
     }
 
     /**
@@ -66,25 +76,7 @@ class BookingsController extends Controller
         return redirect('events')->with('success', 'Event has been booked successfully');
     }
 
-    public function book_service(Request $request)
-    {
-        $service_booking = new ServiceBooking();
-        $service_booking->service_id = $request->service_id;
-        $service_booking->user_id = Auth::id();
-        $service_booking->save();
-
-        return redirect('bookings')->with('success', 'Service has been booked successfully');
-    }
-
-    public function book_venue(Request $request)
-    {
-        $venue_booking = new VenueBooking();
-        $venue_booking->venue_id = $request->venue_id;
-        $venue_booking->user_id = Auth::id();
-        $venue_booking->save();
-
-        return redirect('bookings')->with('success', 'Venue has been booked successfully');
-    }
+    
 
     /**
      * Display the specified resource.
@@ -129,5 +121,25 @@ class BookingsController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function book_service(Request $request)
+    {
+        $service_booking = new ServiceBooking();
+        $service_booking->service_id = $request->service_id;
+        $service_booking->user_id = Auth::id();
+        $service_booking->save();
+
+        return redirect('bookings')->with('success', 'Service has been booked successfully');
+    }
+
+    public function book_venue(Request $request)
+    {
+        $venue_booking = new VenueBooking();
+        $venue_booking->venue_id = $request->venue_id;
+        $venue_booking->user_id = Auth::id();
+        $venue_booking->save();
+
+        return redirect('bookings')->with('success', 'Venue has been booked successfully');
     }
 }
