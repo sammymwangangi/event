@@ -12,19 +12,19 @@ class CategoryEventSeeder extends Seeder
     public function run()
     {
         // Populate Users
-        factory(\App\User::class, 10)->create();
+        factory(\App\User::class, 5)->create();
 
         // Populate Services
-        factory(\App\Service::class, 10)->create();
+        factory(\App\Service::class, 5)->create();
 
         // Populate Venues
-        factory(\App\Venue::class, 10)->create();
+        factory(\App\Venue::class, 5)->create();
 
         // Populate categories
-        factory(App\Category::class, 10)->create();
+        factory(App\Category::class, 5)->create();
 
         // Populate Events
-        factory(App\Event::class, 10)->create();
+        factory(App\Event::class, 5)->create();
 
         // Get all the categories attaching to each event
         $categories= App\Category::all();
